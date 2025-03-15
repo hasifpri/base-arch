@@ -12,7 +12,7 @@ import (
 func NewDatabase(env *Env, log *slog.Logger) *gorm.DB {
 
 	// generate dsn
-	dsn := "host=" + env.DBHost + " user=" + env.DBUser + " password=" + env.DBPass + " dbname=" + env.DBName + " port=" + env.DBPort + " sslmode" + env.DBSslMode
+	dsn := "host=" + env.DBHost + " user=" + env.DBUser + " password=" + env.DBPass + " dbname=" + env.DBName + " port=" + env.DBPort + " sslmode=" + env.DBSslMode
 
 	// Get Log Level
 	levelLog := GetLevelLog(env.LogLevel)

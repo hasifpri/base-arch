@@ -11,6 +11,7 @@ type Env struct {
 	LogLevel string
 	WebPort  int
 
+	DBMigrate  bool
 	DBUser     string
 	DBPass     string
 	DBHost     string
@@ -29,6 +30,7 @@ func NewEnv(viper *viper.Viper) *Env {
 		LogLevel: viper.GetString("LOG_LEVEL"),
 		WebPort:  viper.GetInt("WEB_PORT"),
 
+		DBMigrate:  viper.GetBool("DB_MIGRATE"),
 		DBUser:     viper.GetString("DB_USER"),
 		DBPass:     viper.GetString("DB_PASS"),
 		DBHost:     viper.GetString("DB_HOST"),

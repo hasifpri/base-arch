@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	helpermigration "panel-ektensi/helper/migration"
 	internalconfig "panel-ektensi/internal/config"
 )
 
@@ -15,6 +16,12 @@ func main() {
 	validateConfig := internalconfig.NewValidator(envConfig)
 	fiberConfig := internalconfig.NewFiber(envConfig)
 
+	// Migrate DB
+	if envConfig.DBMigrate {
+		helpermigration.AutoMigrate(dbConfig)
+	}
+
+	// Init Bootstrap Server
 	internalconfig.Bootstrap(&internalconfig.BootstrapConfig{
 		DB:       dbConfig,
 		App:      fiberConfig,
@@ -24,6 +31,7 @@ func main() {
 		Env:      envConfig,
 	})
 
+	// Running App
 	err := fiberConfig.Listen(fmt.Sprintf(":%d", envConfig.WebPort))
 	if err != nil {
 		logConfig.Error("Error starting server", err)
