@@ -18,14 +18,13 @@ func (t *Admin) TableName() string {
 	return "admin"
 }
 
-func ConvertModelToEntitiesAdmin(model *internalmodeladminrequest.CreateAdminInfo) (entity *Admin) {
+func ConvertModelToEntitiesAdmin(model *internalmodeladminrequest.CreateAdminInfo) *Admin {
 
 	// Generate Username
-	username := helpergenerator.UsernameGenerator(model.Email)
-
-	entity.Name = model.Name
-	entity.Email = model.Email
-	entity.Password = model.Password
-	entity.Username = username
-	return
+	return &Admin{
+		Name:     model.Name,
+		Email:    model.Email,
+		Password: model.Password,
+		Username: helpergenerator.UsernameGenerator(model.Email),
+	}
 }

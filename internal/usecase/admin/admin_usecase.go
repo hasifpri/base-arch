@@ -36,7 +36,7 @@ func NewAdminUseCase(
 
 }
 
-func (usecase *AdminUseCase) Create(ctx context.Context, request *internalmodeladminrequest.CreateAdminInfo) (response *internalmodeladminresponse.CreateAdminResponse, exc *helperexception.Exception) {
+func (usecase *AdminUseCase) Create(ctx context.Context, request *internalmodeladminrequest.CreateAdminInfo) (response internalmodeladminresponse.CreateAdminResponse, exc *helperexception.Exception) {
 
 	// Init Transaction
 	tx := usecase.DB.WithContext(ctx).Begin()
@@ -51,14 +51,14 @@ func (usecase *AdminUseCase) Create(ctx context.Context, request *internalmodela
 	// Exec DB
 	err := usecase.AdminRepository.Create(tx, entity)
 	if err != nil {
-		slog.Error("usecase.Create()", "AdminRepository.Create()", "Error", err)
+		usecase.Log.Error("usecase.Create()", "AdminRepository.Create()", "Error", err)
 		exc = helperexception.Internal("failed insert admin", err)
 		return
 	}
 
 	// Commit Transaction
 	if err = tx.Commit().Error; err != nil {
-		slog.Error("usecase.Create()", "tx.Commit()", "Error", err)
+		usecase.Log.Error("usecase.Create()", "tx.Commit()", "Error", err)
 		exc = helperexception.Internal("failed commit transaction", err)
 		return
 	}

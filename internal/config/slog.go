@@ -1,6 +1,7 @@
 package internalconfig
 
 import (
+	"io"
 	"log/slog"
 	"os"
 )
@@ -9,7 +10,15 @@ func NewSlog(env *Env) *slog.Logger {
 
 	logLevelInt := GetLevelLog(env.LogLevel)
 
-	log := slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
+	// Type Log
+	logFile, err := os.OpenFile("app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		// Jika gagal membuka file, fallback ke os.Stdout
+		logFile = os.Stdout
+	}
+	writer := io.MultiWriter(os.Stdout, logFile)
+
+	log := slog.New(slog.NewJSONHandler(writer, &slog.HandlerOptions{
 		Level: logLevelInt,
 	}))
 
