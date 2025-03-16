@@ -71,3 +71,26 @@ func (usecase *AdminUseCase) Create(ctx context.Context, request *internalmodela
 
 	return
 }
+
+func (usecase *AdminUseCase) Select(ctx context.Context, request *internalmodeladminrequest.SelectAdminInfo) (response internalmodeladminresponse.SelectAdminResponse, exc *helperexception.Exception) {
+
+	// Init Transaction
+	tx := usecase.DB.WithContext(ctx)
+
+	// Exec DB
+	result, totalItems, page, pageSize, err := usecase.AdminRepository.Select(tx, ctx, request.QueryInfo)
+	if err != nil {
+		usecase.Log.Error("usecase.Select()", "AdminRepository.Select()", "Error", err)
+		exc = helperexception.Internal("failed select admin", err)
+		return
+	}
+
+	// Output
+	response.Data = internalentity.ConvertEntitiesToModelResponse(result)
+	response.TotalItems = totalItems
+	response.TotalPages = page
+	response.Page = page
+	response.PageSize = pageSize
+
+	return
+}

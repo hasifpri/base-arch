@@ -7,6 +7,16 @@ import (
 	internalconfig "panel-ektensi/internal/config"
 )
 
+//	@title			PANEL Extension API
+//	@version		1.0
+//	@description	This is Api for super Extension.
+//	@termsOfService	http://swagger.io/terms/
+
+//	@securityDefinitions.http	Bearer
+//	@in							header
+//	@name						Authorization
+
+// @schemes	https
 func main() {
 	viperConfig := internalconfig.NewViper()
 	envConfig := internalconfig.NewEnv(viperConfig)

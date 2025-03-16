@@ -1,0 +1,158 @@
+definitions:
+  panel-ektensi_core_response.ApiResponse-panel-ektensi_internal_model_admin_response_CreateAdminResponse:
+    properties:
+      data:
+        $ref: '#/definitions/panel-ektensi_internal_model_admin_response.CreateAdminResponse'
+      error:
+        type: string
+      latency:
+        type: string
+      status:
+        type: integer
+      success:
+        type: boolean
+      tin:
+        type: string
+      tout:
+        type: string
+    type: object
+  panel-ektensi_core_response.ApiResponse-panel-ektensi_internal_model_admin_response_SelectAdminResponse:
+    properties:
+      data:
+        $ref: '#/definitions/panel-ektensi_internal_model_admin_response.SelectAdminResponse'
+      error:
+        type: string
+      latency:
+        type: string
+      status:
+        type: integer
+      success:
+        type: boolean
+      tin:
+        type: string
+      tout:
+        type: string
+    type: object
+  panel-ektensi_internal_model_admin_request.CreateAdminInfo:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  panel-ektensi_internal_model_admin_response.AdminReadResponse:
+    properties:
+      admin_id:
+        type: integer
+      created_at:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+      username:
+        type: string
+    type: object
+  panel-ektensi_internal_model_admin_response.CreateAdminResponse:
+    properties:
+      admin_id:
+        type: integer
+      email:
+        type: string
+      name:
+        type: string
+      username:
+        type: string
+    type: object
+  panel-ektensi_internal_model_admin_response.SelectAdminResponse:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/panel-ektensi_internal_model_admin_response.AdminReadResponse'
+        type: array
+      page:
+        type: integer
+      page_size:
+        type: integer
+      total_items:
+        type: integer
+      total_pages:
+        type: integer
+    type: object
+info:
+  contact: {}
+  description: This is Api for super Extension.
+  termsOfService: http://swagger.io/terms/
+  title: PANEL Extension API
+  version: "1.0"
+paths:
+  /admin:
+    get:
+      consumes:
+      - application/json
+      description: Get All Admin.
+      parameters:
+      - description: Search Parameter
+        in: query
+        name: filter
+        type: string
+      - description: Sorting Parameter
+        in: query
+        name: sort
+        type: string
+      - description: Current Page
+        in: query
+        name: page
+        type: integer
+      - description: Rows Count
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Result
+          schema:
+            $ref: '#/definitions/panel-ektensi_core_response.ApiResponse-panel-ektensi_internal_model_admin_response_SelectAdminResponse'
+      security:
+      - Bearer: []
+      summary: Get All Admin.
+      tags:
+      - Admin
+    post:
+      consumes:
+      - application/json
+      description: Insert Admin.
+      parameters:
+      - description: Insert Order Request Parameter
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/panel-ektensi_internal_model_admin_request.CreateAdminInfo'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Result
+          schema:
+            $ref: '#/definitions/panel-ektensi_core_response.ApiResponse-panel-ektensi_internal_model_admin_response_CreateAdminResponse'
+        "400":
+          description: Result
+          schema:
+            $ref: '#/definitions/panel-ektensi_core_response.ApiResponse-panel-ektensi_internal_model_admin_response_CreateAdminResponse'
+      security:
+      - Bearer: []
+      summary: Insert Admin.
+      tags:
+      - Admin
+schemes:
+- https
+swagger: "2.0"

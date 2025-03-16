@@ -1,0 +1,245 @@
+{
+    "schemes": [
+        "https"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "This is Api for super Extension.",
+        "title": "PANEL Extension API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {},
+        "version": "1.0"
+    },
+    "paths": {
+        "/admin": {
+            "get": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Get All Admin.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Get All Admin.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Search Parameter",
+                        "name": "filter",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sorting Parameter",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Current Page",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Rows Count",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Result",
+                        "schema": {
+                            "$ref": "#/definitions/panel-ektensi_core_response.ApiResponse-panel-ektensi_internal_model_admin_response_SelectAdminResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Insert Admin.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Insert Admin.",
+                "parameters": [
+                    {
+                        "description": "Insert Order Request Parameter",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/panel-ektensi_internal_model_admin_request.CreateAdminInfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Result",
+                        "schema": {
+                            "$ref": "#/definitions/panel-ektensi_core_response.ApiResponse-panel-ektensi_internal_model_admin_response_CreateAdminResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Result",
+                        "schema": {
+                            "$ref": "#/definitions/panel-ektensi_core_response.ApiResponse-panel-ektensi_internal_model_admin_response_CreateAdminResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "panel-ektensi_core_response.ApiResponse-panel-ektensi_internal_model_admin_response_CreateAdminResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/panel-ektensi_internal_model_admin_response.CreateAdminResponse"
+                },
+                "error": {
+                    "type": "string"
+                },
+                "latency": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "success": {
+                    "type": "boolean"
+                },
+                "tin": {
+                    "type": "string"
+                },
+                "tout": {
+                    "type": "string"
+                }
+            }
+        },
+        "panel-ektensi_core_response.ApiResponse-panel-ektensi_internal_model_admin_response_SelectAdminResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/panel-ektensi_internal_model_admin_response.SelectAdminResponse"
+                },
+                "error": {
+                    "type": "string"
+                },
+                "latency": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "success": {
+                    "type": "boolean"
+                },
+                "tin": {
+                    "type": "string"
+                },
+                "tout": {
+                    "type": "string"
+                }
+            }
+        },
+        "panel-ektensi_internal_model_admin_request.CreateAdminInfo": {
+            "type": "object",
+            "required": [
+                "email",
+                "name",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "panel-ektensi_internal_model_admin_response.AdminReadResponse": {
+            "type": "object",
+            "properties": {
+                "admin_id": {
+                    "type": "integer"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "panel-ektensi_internal_model_admin_response.CreateAdminResponse": {
+            "type": "object",
+            "properties": {
+                "admin_id": {
+                    "type": "integer"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "panel-ektensi_internal_model_admin_response.SelectAdminResponse": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/panel-ektensi_internal_model_admin_response.AdminReadResponse"
+                    }
+                },
+                "page": {
+                    "type": "integer"
+                },
+                "page_size": {
+                    "type": "integer"
+                },
+                "total_items": {
+                    "type": "integer"
+                },
+                "total_pages": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

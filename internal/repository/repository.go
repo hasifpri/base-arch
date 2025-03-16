@@ -6,8 +6,13 @@ import (
 )
 
 type Repository[T any] struct {
-	DB             *gorm.DB
-	queryGenerator helperutilities.SqlGenerator
+	queryGenerator *helperutilities.SqlGenerator
+}
+
+func NewRepositoryImpl[T any](queryGenerator *helperutilities.SqlGenerator) *Repository[T] {
+	return &Repository[T]{
+		queryGenerator: queryGenerator,
+	}
 }
 
 func (r *Repository[T]) Create(db *gorm.DB, entity *T) error {

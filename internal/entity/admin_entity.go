@@ -1,8 +1,10 @@
 package internalentity
 
 import (
+	helperconverter "panel-ektensi/helper/converter"
 	helpergenerator "panel-ektensi/helper/generator"
 	internalmodeladminrequest "panel-ektensi/internal/model/admin/request"
+	internalmodeladminresponse "panel-ektensi/internal/model/admin/response"
 )
 
 type Admin struct {
@@ -27,4 +29,20 @@ func ConvertModelToEntitiesAdmin(model *internalmodeladminrequest.CreateAdminInf
 		Password: model.Password,
 		Username: helpergenerator.UsernameGenerator(model.Email),
 	}
+}
+
+func ConvertEntitiesToModelResponse(entities []Admin) []internalmodeladminresponse.AdminReadResponse {
+
+	models := []internalmodeladminresponse.AdminReadResponse{}
+	for _, entity := range entities {
+		models = append(models, internalmodeladminresponse.AdminReadResponse{
+			AdminID:   entity.AdminID,
+			Email:     entity.Email,
+			Username:  entity.Username,
+			Name:      entity.Email,
+			CreatedAt: helperconverter.ConvertTimeToString(&entity.CreatedAt),
+		})
+	}
+	
+	return models
 }

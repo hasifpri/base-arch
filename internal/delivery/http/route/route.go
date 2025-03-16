@@ -29,6 +29,7 @@ func (c *RouteConfig) SetupAdminRoute() {
 
 	// Admin Route
 	adminRoute.Post("/", c.AdminHandlerAdmin.Create)
+	adminRoute.Get("/", c.AdminHandlerAdmin.Select)
 }
 
 func (c *RouteConfig) SetupCustomerRoute() {
