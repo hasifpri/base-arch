@@ -3,8 +3,8 @@ package internalentity
 import (
 	helperconverter "panel-ektensi/helper/converter"
 	helpergenerator "panel-ektensi/helper/generator"
-	internalmodeladminrequest "panel-ektensi/internal/model/admin/request"
-	internalmodeladminresponse "panel-ektensi/internal/model/admin/response"
+	"panel-ektensi/internal/model/request"
+	"panel-ektensi/internal/model/response"
 )
 
 type Admin struct {
@@ -43,6 +43,6 @@ func ConvertEntitiesToModelResponse(entities []Admin) []internalmodeladminrespon
 			CreatedAt: helperconverter.ConvertTimeToString(&entity.CreatedAt),
 		})
 	}
-	
+
 	return models
 }

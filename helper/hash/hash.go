@@ -1,4 +1,4 @@
-package helper
+package helperhash
 
 import "golang.org/x/crypto/bcrypt"
 
