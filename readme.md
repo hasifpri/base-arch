@@ -1,3 +1,6 @@
+## Pull Dependencies
+go mod tidy
+
 ## Build Docker (for OTel, Jaeger, elasticSearch)
 docker compose up -d
 
