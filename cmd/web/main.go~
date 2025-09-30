@@ -10,7 +10,7 @@ import (
 	"syscall"
 )
 
-//	@title			Base Arch API
+//	@title			PANEL Extension API
 //	@version		1.0
 //	@description	This is Api for super Extension.
 //	@termsOfService	http://swagger.io/terms/

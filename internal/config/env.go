@@ -21,6 +21,8 @@ type Env struct {
 	DBIdleConn int
 	DBMaxConn  int
 	DBMaxLife  time.Duration
+
+	OTelEndpoint string
 }
 
 func NewEnv(viper *viper.Viper) *Env {
@@ -40,5 +42,7 @@ func NewEnv(viper *viper.Viper) *Env {
 		DBIdleConn: viper.GetInt("DB_IDLE_CONN"),
 		DBMaxConn:  viper.GetInt("DB_MAX_CONN"),
 		DBMaxLife:  viper.GetDuration("DB_MAX_LIFE"),
+
+		OTelEndpoint: viper.GetString("OTEL_ENDPOINT"),
 	}
 }

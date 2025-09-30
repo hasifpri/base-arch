@@ -2,7 +2,7 @@ package helpergenerator
 
 import (
 	"fmt"
-	"github.com/bytesaddict/dancok"
+	"github.com/hasifpri/dancok"
 	"github.com/gofiber/fiber/v2"
 	"panel-ektensi/core"
 	"strconv"

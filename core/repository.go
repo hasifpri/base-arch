@@ -1,6 +1,6 @@
 package core
 
-import "github.com/bytesaddict/dancok"
+import "github.com/hasifpri/dancok"
 
 type QueryInfo struct {
 	Filter          string

@@ -4,42 +4,46 @@ import (
 	"io"
 	"log/slog"
 	"os"
+	"path/filepath"
 	"strings"
+
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 func NewSlog(env *Env) *slog.Logger {
 
-	logLevelInt := GetLevelLog(env.LogLevel)
+	// Make dir
+	_ = os.MkdirAll("log", 0o755)
 
-	// Type Log
-	logFile, err := os.OpenFile("app.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-	if err != nil {
-		// Jika gagal membuka file, fallback ke os.Stdout
-		logFile = os.Stdout
+	rotator := &lumberjack.Logger{
+		Filename:   filepath.Join("log", "app.log"),
+		MaxSize:    1,
+		MaxBackups: 10,
+		MaxAge:     30,
+		Compress:   true,
 	}
-	writer := io.MultiWriter(os.Stdout, logFile)
+
+	// tulis ke stdout + file berotasi
+	writer := io.MultiWriter(os.Stdout, rotator)
 
 	log := slog.New(slog.NewJSONHandler(writer, &slog.HandlerOptions{
-		Level: logLevelInt,
+		Level: GetLevelLog(env.LogLevel),
 	}))
 
 	return log
 }
 
-func GetLevelLog(logLevelStr string) slog.Level {
-
-	logLevelStr = strings.ToLower(logLevelStr)
-	
-	var logLevelInt slog.Level
-	if logLevelStr == "Debug" {
-		logLevelInt = slog.LevelDebug
-	} else if logLevelStr == "Info" {
-		logLevelInt = slog.LevelInfo
-	} else if logLevelStr == "Warn" {
-		logLevelInt = slog.LevelWarn
-	} else {
-		logLevelInt = slog.LevelError
+func GetLevelLog(s string) slog.Level {
+	switch strings.ToLower(strings.TrimSpace(s)) {
+	case "debug":
+		return slog.LevelDebug
+	case "info":
+		return slog.LevelInfo
+	case "warn", "warning":
+		return slog.LevelWarn
+	case "error":
+		return slog.LevelError
+	default:
+		return slog.LevelInfo
 	}
-
-	return logLevelInt
 }

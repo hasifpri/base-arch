@@ -1,6 +1,8 @@
 package config
 
 import (
+	"fmt"
+	"github.com/gofiber/contrib/otelfiber"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
@@ -16,6 +18,10 @@ func NewFiber(env *Env) *fiber.App {
 		AllowOrigins: "*",
 		AllowHeaders: "Origin, Content-Type, Accept, Authorization",
 	}))
+
+	app.Use(otelfiber.Middleware(otelfiber.WithSpanNameFormatter(func(ctx *fiber.Ctx) string {
+		return fmt.Sprintf("%s - %s - %s", env.AppName, ctx.Method(), ctx.Route().Path)
+	})))
 
 	return app
 }

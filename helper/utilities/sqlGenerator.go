@@ -2,7 +2,7 @@ package helperutilities
 
 import (
 	"fmt"
-	"github.com/bytesaddict/dancok"
+	"github.com/hasifpri/dancok"
 	"panel-ektensi/core"
 )
 

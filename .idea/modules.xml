@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/http-download.iml" filepath="$PROJECT_DIR$/.idea/http-download.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/pwa-zte-be.iml" filepath="$PROJECT_DIR$/.idea/pwa-zte-be.iml" />
     </modules>
   </component>
 </project>

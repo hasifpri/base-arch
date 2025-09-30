@@ -26,3 +26,7 @@ func (r *Repository[T]) Update(db *gorm.DB, entity *T) error {
 func (r *Repository[T]) Delete(db *gorm.DB, entity *T) error {
 	return db.Select("deleted_at").Updates(entity).Error
 }
+
+func (r *Repository[T]) CreateBatch(db *gorm.DB, entities []*T) error {
+	return db.Create(&entities).Error
+}
